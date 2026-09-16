@@ -1,0 +1,10 @@
+# Keep GitHub language stats on the actual stack, not lockfiles or docs.
+package-lock.json linguist-generated=true
+**/package-lock.json linguist-generated=true
+*.md linguist-documentation=true
+docs/** linguist-documentation=true
+docs/screenshots/** linguist-generated=true
+*.png linguist-documentation=true
+*.svg linguist-documentation=true
+docker-compose.yml linguist-documentation=true
+.github/** linguist-documentation=true

@@ -1,0 +1,15 @@
+{
+  "name": "mini-job-queue-dashboard",
+  "private": true,
+  "description": "Job Queue Dashboard — React + NestJS intern assignment",
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm run start:dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend",
+    "test": "npm test --prefix backend",
+    "test:e2e": "npm run test:e2e --prefix backend",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.2"
+  }
+}
