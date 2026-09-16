@@ -34,6 +34,16 @@ describe('Jobs API (e2e)', () => {
     await app.close();
   });
 
+  it('GET / returns an API index instead of 404', async () => {
+    const res = await request(app.getHttpServer()).get('/').expect(200);
+    expect(res.body).toMatchObject({
+      name: 'Job Queue API',
+      status: 'ok',
+      jobs: '/jobs',
+      health: '/health',
+    });
+  });
+
   it('GET /health reports a live database', async () => {
     const res = await request(app.getHttpServer()).get('/health').expect(200);
     expect(res.body.status).toBe('ok');

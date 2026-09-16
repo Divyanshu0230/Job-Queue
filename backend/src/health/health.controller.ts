@@ -4,6 +4,23 @@ import { SkipThrottle } from '@nestjs/throttler';
 import { DataSource } from 'typeorm';
 
 @ApiTags('health')
+@Controller()
+export class RootController {
+  @SkipThrottle()
+  @Get()
+  @ApiOperation({ summary: 'API index' })
+  index() {
+    return {
+      name: 'Job Queue API',
+      status: 'ok',
+      jobs: '/jobs',
+      health: '/health',
+      docs: '/docs',
+    };
+  }
+}
+
+@ApiTags('health')
 @Controller('health')
 export class HealthController {
   constructor(private readonly dataSource: DataSource) {}

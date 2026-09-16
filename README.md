@@ -280,6 +280,7 @@ Types: `email` · `report` · `ingest` · `webhook` · `cleanup`.
 | `POST` | `/jobs/bulk-start` | Start several waiting jobs, each through CAS |
 | `DELETE` | `/jobs/:id` | 204 |
 | `GET` | `/jobs/stream` | SSE |
+| `GET` | `/` | API index (so the submitted backend URL is not a 404) |
 | `GET` | `/health` | Process + DB |
 | `GET` | `/docs` | API docs page |
 

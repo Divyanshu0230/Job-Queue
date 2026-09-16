@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { RequestIdInterceptor } from './common/interceptors/request-id.interceptor';
 import { buildDatabaseConfig } from './database/database.config';
-import { HealthController } from './health/health.controller';
+import { HealthController, RootController } from './health/health.controller';
 import { JobsModule } from './jobs/jobs.module';
 
 @Module({
@@ -29,7 +29,7 @@ import { JobsModule } from './jobs/jobs.module';
     }),
     JobsModule,
   ],
-  controllers: [HealthController],
+  controllers: [RootController, HealthController],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
