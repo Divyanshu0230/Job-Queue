@@ -25,6 +25,19 @@ export function buildDatabaseConfig(): TypeOrmModuleOptions {
     };
   }
 
+  // Vercel serverless cannot compile better-sqlite3 on Node 24.
+  // sql.js is WASM, so the demo API can run without a native addon.
+  if (process.env.VERCEL) {
+    return {
+      type: 'sqljs',
+      autoSave: true,
+      location: '/tmp/queue.sqlite',
+      entities: [Job, JobEvent],
+      synchronize: true,
+      logging: process.env.TYPEORM_LOGGING === 'true',
+    };
+  }
+
   const database = process.env.DATABASE_PATH ?? join(process.cwd(), 'data', 'queue.sqlite');
   if (database !== ':memory:') {
     mkdirSync(dirname(database), { recursive: true });

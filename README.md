@@ -15,9 +15,9 @@ How I would demo and defend this in a review: [docs/SUBMISSION.md](docs/SUBMISSI
 | | URL |
 | --- | --- |
 | Dashboard (Vercel) | https://job-queue-dashboard-rho.vercel.app |
-| API | _needs a Node host + Postgres — Vercel is the UI only_ |
-| Swagger | `https://<api-host>/docs` |
-| Health | `https://<api-host>/health` |
+| API | https://job-queue-api.vercel.app |
+| Swagger | https://job-queue-api.vercel.app/docs |
+| Health | https://job-queue-api.vercel.app/health |
 
 Local:
 

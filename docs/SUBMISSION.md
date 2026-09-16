@@ -6,7 +6,7 @@ Repo: https://github.com/Divyanshu0230/Job-Queue
 
 Live dashboard: https://job-queue-dashboard-rho.vercel.app
 
-Live API: still needs a Node host + Postgres. The Vercel deploy is the UI.
+Live API: https://job-queue-api.vercel.app
 
 I wrote this so I can defend the project in a short call. The UI is small on purpose. The part I want to talk about is the status machine and the race.
 
