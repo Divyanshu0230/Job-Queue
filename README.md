@@ -10,6 +10,22 @@ The UI lets you create a job, start it, finish it, or mark it failed. The API is
 
 How I would demo and defend this in a review: [docs/SUBMISSION.md](docs/SUBMISSION.md).
 
+## Submit these
+
+| What they asked | Link |
+| --- | --- |
+| GitHub (public) | https://github.com/Divyanshu0230/Job-Queue |
+| Live frontend | https://job-queue-dashboard-rho.vercel.app |
+| Live API | https://job-queue-api.vercel.app |
+
+## Bonus (the production-shaped piece)
+
+The brief says add **one** small thing that would help in production, and say why.
+
+I picked **compare-and-swap on the job row** (`UPDATE ... WHERE id AND status AND version`). The assignment’s interesting question is two tabs claiming the same waiting job. A Redis lock or a worker pool would be bigger than this problem. A conditional SQL write is the smallest thing that stays correct when React is not the only client.
+
+I also wired **SSE** (`GET /jobs/stream`) so the other tab updates without a refresh, and an append-only **`job_events`** table so you can answer “who flipped this job?”. Those sit on top of the same decision. If the stream drops, the UI polls every 4s.
+
 ## Live
 
 | | URL |
@@ -96,7 +112,7 @@ I would not call this a distributed queue. There is one database. The row is the
 
 ## High-level architecture
 
-Two processes. The browser never writes the database. Nest is the only writer. SQLite on my laptop, Postgres when it is deployed.
+Two processes. The browser never writes the database. Nest is the only writer. SQLite on my laptop. The Vercel demo API uses `sql.js` so it can run as a serverless function (no native SQLite addon). Postgres is still supported via `DATABASE_URL` if this moved to a long-running host.
 
 ```mermaid
 flowchart LR
@@ -144,7 +160,7 @@ flowchart TB
   API --> DB[("Database<br/>SQLite local / Postgres prod")]
 ```
 
-Same boxes in production: Vercel serves the web app, a Node host serves the API, Postgres holds the rows. No Redis, no extra broker.
+Same boxes in production: Vercel serves the web app and the API. Locally the database is SQLite. On Vercel the demo API uses `sql.js` (data can reset on a cold start). A real host would use Postgres.
 
 ## Low-level design
 
@@ -338,6 +354,7 @@ One `200`, one `409`. The e2e test does the same with `Promise.all`.
 - `synchronize: true` for the demo. Real production would use migrations.
 - CORS is open unless `FRONTEND_ORIGIN` is set.
 - I seed 12 demo jobs on an empty DB so the dashboard is not a blank intern template.
+- The live Vercel API keeps the DB in `/tmp` (`sql.js`). Fine for a demo. A real deploy would use Postgres so data survives.
 
 If I had more time: migrations + Postgres in CI, soft deletes, `Idempotency-Key` on create, auth, a real worker pool + outbox, shared types package, Playwright for the UI race.
 
