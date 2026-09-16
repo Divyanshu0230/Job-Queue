@@ -12,11 +12,17 @@ How I would demo and defend this in a review: [docs/SUBMISSION.md](docs/SUBMISSI
 
 ## Submit these
 
-| What they asked | Link |
+| Submission field | Link |
 | --- | --- |
-| GitHub (public) | https://github.com/Divyanshu0230/Job-Queue |
-| Live frontend | https://job-queue-dashboard-rho.vercel.app |
-| Live API | https://job-queue-api.vercel.app |
+| GitHub repository link | https://github.com/Divyanshu0230/Job-Queue |
+| Live frontend URL | https://job-queue-dashboard-rho.vercel.app |
+| Live backend/API URL | https://job-queue-api.vercel.app |
+
+Local:
+
+- App: [http://127.0.0.1:5173](http://127.0.0.1:5173)
+- API: [http://127.0.0.1:3000](http://127.0.0.1:3000)
+- API docs: [http://127.0.0.1:3000/docs](http://127.0.0.1:3000/docs)
 
 ## Bonus (the production-shaped piece)
 
@@ -25,21 +31,6 @@ The brief says add **one** small thing that would help in production, and say wh
 I picked **compare-and-swap on the job row** (`UPDATE ... WHERE id AND status AND version`). The assignment’s interesting question is two tabs claiming the same waiting job. A Redis lock or a worker pool would be bigger than this problem. A conditional SQL write is the smallest thing that stays correct when React is not the only client.
 
 I also wired **SSE** (`GET /jobs/stream`) so the other tab updates without a refresh, and an append-only **`job_events`** table so you can answer “who flipped this job?”. Those sit on top of the same decision. If the stream drops, the UI polls every 4s.
-
-## Live
-
-| | URL |
-| --- | --- |
-| Dashboard (Vercel) | https://job-queue-dashboard-rho.vercel.app |
-| API | https://job-queue-api.vercel.app |
-| Swagger | https://job-queue-api.vercel.app/docs |
-| Health | https://job-queue-api.vercel.app/health |
-
-Local:
-
-- App: [http://127.0.0.1:5173](http://127.0.0.1:5173)
-- API: [http://127.0.0.1:3000](http://127.0.0.1:3000)
-- Swagger: [http://127.0.0.1:3000/docs](http://127.0.0.1:3000/docs)
 
 ## Screenshots
 
@@ -290,7 +281,7 @@ Types: `email` · `report` · `ingest` · `webhook` · `cleanup`.
 | `DELETE` | `/jobs/:id` | 204 |
 | `GET` | `/jobs/stream` | SSE |
 | `GET` | `/health` | Process + DB |
-| `GET` | `/docs` | Swagger |
+| `GET` | `/docs` | API docs page |
 
 SPA routes are `/`, `/queue`, `/queue/:id`, `/activity`, `/settings`. The REST path stays `/jobs` so Vite never confuses the UI with the API.
 

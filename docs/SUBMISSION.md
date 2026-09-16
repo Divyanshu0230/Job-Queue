@@ -2,11 +2,11 @@
 
 I am submitting a React + NestJS job queue dashboard.
 
-Repo: https://github.com/Divyanshu0230/Job-Queue
+GitHub repository link: https://github.com/Divyanshu0230/Job-Queue
 
-Live dashboard: https://job-queue-dashboard-rho.vercel.app
+Live frontend URL: https://job-queue-dashboard-rho.vercel.app
 
-Live API: https://job-queue-api.vercel.app
+Live backend/API URL: https://job-queue-api.vercel.app
 
 I wrote this so I can defend the project in a short call. The UI is small on purpose. The part I want to talk about is the status machine and the race.
 

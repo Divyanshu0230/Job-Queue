@@ -8,4 +8,4 @@ npm run start:dev
 ```
 
 - API: http://localhost:3000
-- Swagger: http://localhost:3000/docs
+- API docs: http://localhost:3000/docs
